@@ -18,6 +18,14 @@ import sys
 headers = {'User-Agent':'jesperdahl@hotmail.no'}
 place = 'Oslo'
 
+#https://developer.yr.no/doc/StatusCodes/
+#https://developer.yr.no/doc/locationforecast/HowTO/
+#https://developer.yr.no/doc/GettingStarted/
+#https://developer.yr.no/doc/ForecastJSON/
+
+#https://nominatim.openstreetmap.org/search.php?q=oslo&format=jsonv2
+#https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59&lon=10
+
 
 
 '''Request and processing for lat/lon'''
