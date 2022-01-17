@@ -51,7 +51,7 @@ def parse_coord(response) -> list() :
     return [float(response[0]['lat']), float(response[0]['lon'])]
 
 def current_time():
-    return time.strftime('%a, %d %b %Y %I:%M:%S %Z', time.gmtime())
+    return time.strftime('%a, %d %b %Y %H:%M:%S %Z', time.gmtime())
 
 def write_meta_data(response):
     last_modified = response.headers['Last-Modified']
@@ -116,7 +116,7 @@ def handle_met_request(lat,lon):
         meta_place = metadata['place']
 
         if debug:
-            print(f"Metadata found: \n Data expires: {expires}\n Last modified: {last_modified}")
+            print(f"Metadata found: \n Prev. Data expires: {expires}\n Last modified: {last_modified}")
     
     
 
@@ -129,6 +129,7 @@ def handle_met_request(lat,lon):
     time = current_time()
     if time > expires:
         if debug:
+            print(time)
             print("Weather data expired, requesting...")
 
 
@@ -156,42 +157,11 @@ def handle_met_request(lat,lon):
         return weather_data
 
 
-
-
-
-    """
-    met_response = met_request(lat,lon,is_modified,)
-
-    try:
-        base_url = f'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat={lat:.2f}&lon={lon:.2f}'
-        response = requests.get(base_url,headers=headers)
-    except:
-        print(f"An error occured, could not access {base_url}")
-
-    
-    if response.status_code != 200:
-        print("Program exited with code", response.status_code)
-        exit()
-    else:
-
-        if debug:
-            print("Status code:", response.status_code)
-            
-
-        expires = response.headers['Expires']
-        last_modified = response.headers['Last-Modified']
-
-        '''
-            Do expires-logic here with saving or loading data
-        '''
-        return response.json()
-    """
 def show_forecast(response):
     updated_at = response['properties']['meta']['updated_at']
     temp_unit = response['properties']['meta']['units']['air_temperature']
 
     time = response['properties']['timeseries'][0]['time']
-    air_pressure = response['properties']['timeseries'][0]['data']['instant']['details']['air_pressure_at_sea_level']
     air_temp = response['properties']['timeseries'][0]['data']['instant']['details']['air_temperature']
     wind_direction = response['properties']['timeseries'][0]['data']['instant']['details']['wind_from_direction']
     wind_speed = response['properties']['timeseries'][0]['data']['instant']['details']['wind_speed']
