@@ -6,11 +6,6 @@ import time
 from time import gmtime, strftime
 
 '''TODO
-- Store response,expires,last-modified as json locally
-- Before each request check previous saved data
-- If not later than expires, just pull saved data
-    - Else request new data, overwrite, show results
-- Parse wind-direction -check
 - Compare places
 - Weather for specific date
 '''
@@ -116,7 +111,7 @@ def handle_met_request(lat,lon):
         meta_place = metadata['place']
 
         if debug:
-            print(f"Metadata found: \n Prev. Data expires: {expires}\n Last modified: {last_modified}")
+            print(f"Metadata found for place {meta_place}: \n Prev. Data expires: {expires}\n Last modified: {last_modified}")
     
     
 
